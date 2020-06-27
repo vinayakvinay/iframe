@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Widget</title>
+    <style>
+      .full-screen {
+        width: 100vw;
+        height: 100vh;
+        background: green;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="layout">
+      <h4>I am a widget</h4>
+      <button onclick="toggle()">Toggle fullscreen</button>
+    </div>
+    <script>
+      const layout = document.getElementById('layout');
+      let fullScreenMode = false;
+      const toggle = () => {
+        fullScreenMode = !fullScreenMode;
+        fullScreenMode
+          ? layout.classList.add('full-screen')
+          : layout.classList.remove('full-screen');
+        window.parent.postMessage('toggleFullScreen', '*');
+      };
+    </script>
+  </body>
+</html>

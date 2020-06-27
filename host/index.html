@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Host App</title>
+  </head>
+  <body>
+    <div>
+      <h3>I am the Host</h3>
+    </div>
+    <div id="widget"></div>
+    <script>
+      const iframe = document.createElement('iframe');
+      let isFullScreen = false;
+      function loadGA(url = 'http://localhost:3001') {
+        iframe.setAttribute('src', url);
+        iframe.setAttribute('frameborder', '0');
+        document.getElementById('widget').appendChild(iframe);
+      }
+      function toggleFullScreen() {
+        isFullScreen = !isFullScreen;
+        if (isFullScreen) {
+          iframe.style.height = '100vh';
+          iframe.style.width = '100vw';
+          iframe.style.background = 'green';
+          iframe.style.zIndex = 99999;
+        } else {
+          iframe.style.height = '320px';
+          iframe.style.width = '490px';
+          iframe.style.background = 'blue';
+        }
+      }
+      window.onmessage = (e) => {
+        if (e.data == 'toggleFullScreen') {
+          toggleFullScreen();
+        }
+        console.log('event is ', e);
+      };
+      loadGA();
+    </script>
+  </body>
+</html>
